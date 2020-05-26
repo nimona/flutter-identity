@@ -1,0 +1,57 @@
+package mochi
+
+import nimona.io/crypto crypto
+import nimona.io/stream stream
+
+
+stream nimona.io/identity {
+    signed object Contact {
+        alias string
+        publicKey nimona.io/crypto.PublicKey
+        profile nimona.io/identity.Profile
+        createDatetime string
+    }
+    signed object Profile {
+        displayPicture data
+        nameFirst string
+        nameLast string
+        version int
+    }
+}
+
+stream mochi.io/conversation {
+    signed root object Created {
+        datetime string
+        name string
+        topic string
+        nonce string
+    }
+    signed object Updated {
+        datetime string
+        name string
+        topic string
+    }
+    signed object DisplayPictureUpdated {
+        datetime string
+        displayPicture data
+    }
+    signed object MessageAdded {
+        datetime string
+        body string
+    }
+    signed object ParticipantInvited {
+        datetime string
+        publicKey nimona.io/crypto.PublicKey
+    }
+    signed object ParticipantJoined {
+        datetime string
+    }
+    signed object ParticipantProfileUpdated {
+        datetime string
+        profile nimona.io/identity.Profile
+    }
+}
+
+signed object nimona.io/stream.Subcribe {
+    nonce string
+}
