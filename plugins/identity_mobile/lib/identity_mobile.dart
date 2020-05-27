@@ -22,12 +22,40 @@ class IdentityMobile {
     // print(asdf);
     final idString = await _channel.invokeMethod('createNewIdentityString');
     Identity id = Identity.fromJson(json.decode(idString));
-print("createNewIdentity");
-print("createNewIdentity");
-print("createNewIdentity");
-print(idString);
-print(id.privateKey);
-print(id.publicKey);
+    print("createNewIdentity");
+    print("createNewIdentity");
+    print("createNewIdentity");
+    print(idString);
+    print(id.privateKey);
+    print(id.publicKey);
+
+    return id;
+    // return Identity("","","","");
+  }
+
+  /// importNewIdentityString and return it
+  static Future<Identity> importNewIdentityString(String mnemonic) async {
+    // final asdf = _channel.invokeMethod('importNewIdentityString', name);
+    // print(asdf);
+    String idString;
+    try {
+      idString =
+          await _channel.invokeMethod('importNewIdentityString', [mnemonic]);
+      if (idString == null || idString == "") {
+        throw "something bad happened";
+      }
+    } catch (e) {
+      print("!!!!!!");
+      print(e);
+      throw e;
+    }
+    Identity id = Identity.fromJson(json.decode(idString));
+    print("importNewIdentityString");
+    print("importNewIdentityString");
+    print("importNewIdentityString");
+    print(idString);
+    print(id.privateKey);
+    print(id.publicKey);
 
     return id;
     // return Identity("","","","");

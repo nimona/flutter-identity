@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:identity/data/repository.dart';
 
 import 'package:identity_mobile/identity.dart';
-
 
 class MasterDetailLayout extends StatefulWidget {
   @override
@@ -30,7 +30,7 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
   void showDefaultSnackbar(BuildContext context) {
     Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text('Secret phrase copied'),
+        content: Text('Public key copied'),
       ),
     );
   }
@@ -38,12 +38,56 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+
+     removeIdentity(BuildContext context) {
+                          // set up the buttons
+                          Widget cancelButton = FlatButton(
+                            child: Text("Nevermind"),
+                            onPressed: () {
+                               Navigator.of(context).pop(); 
+                            },
+                          );
+                          Widget continueButton = FlatButton(
+                            child: Text(
+                              "Remove identity",
+                              style: TextStyle(
+                                color: Colors.redAccent,
+                              ),
+                              ),
+                            onPressed: () {
+                                 Repository.get().removeIdentity();
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          "/",
+                          (_) => false,
+                        );
+                            },
+                          );
+
+                          // set up the AlertDialog
+                          AlertDialog alert = AlertDialog(
+                            title: Text("Remove identity"),
+                            content: Text(
+                                "Are you sure you want to remove this identity from your phone?",
+                                // "\nBefore you do, make sure you have your private key seed backed up.",
+                                ),
+                            actions: [
+                              cancelButton,
+                              continueButton,
+                            ],
+                          );
+
+                          // show the dialog
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
+                            },
+                          );
+                        }
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-          brightness: Brightness.light, 
-        elevation: 0.0,
-      ),
+      appBar: EmptyAppBar(),
       backgroundColor: Colors.white,
       body: FutureBuilder(
         future: identityFuture,
@@ -62,48 +106,86 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
             padding: EdgeInsets.all(15),
             child: Center(
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Yay!! 😊',
+                    'Your identity',
                     textAlign: TextAlign.left,
-                    style: textTheme.headline6,
+                    style: textTheme.headline4,
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'Your public key',
+                    'Your public key is how others can find and identity you.',
                     textAlign: TextAlign.left,
-                    // style: textTheme.bodyText1,
+                  ),
+                  Text(
+                    'It is perfectly ok to share it with anyone.',
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Text(
                     snapshot.data.publicKey,
                     textAlign: TextAlign.left,
-                    // style: textTheme.bodyText1,
+                    style: textTheme.bodyText2.copyWith(
+                      fontFamily: "Courier",
+                    ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Text(
-                    'Your very secret phrase.',
-                    textAlign: TextAlign.left,
-                    // style: textTheme.headline4,
+                  GestureDetector(
+                    onTap: () {
+                      Clipboard.setData(
+                        ClipboardData(
+                          text: snapshot.data.publicKey,
+                        ),
+                      );
+                      showDefaultSnackbar(context);
+                    },
+                    child: Container(
+                      // padding: EdgeInsets.only(top: 25, bottom: 10),
+                      child: Text(
+                        'Copy to clipboard',
+                        style: TextStyle(
+                          color: Color(0xFF6697FF),
+                          // fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
+                  // Text(
+                  //   'Your very secret phrase.',
+                  //   textAlign: TextAlign.left,
+                  //   // style: textTheme.headline4,
+                  // ),
+
+                  Expanded(
+                    child: Container(),
+                  ),
+// Align(
+                  // alignment: Alignment.bottomCenter,
                   Container(
-                    padding: EdgeInsets.only(top: 15),
+                    alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.only(bottom: 15),
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       onPressed: () {
-                        Repository.get().removeIdentity();
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          "/",
-                          (_) => false,
-                        );
+                       removeIdentity(context);
+                        // Repository.get().removeIdentity();
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //   context,
+                        //   "/",
+                        //   (_) => false,
+                        // );
                       },
                       color: Colors.redAccent,
                       child: Container(
@@ -116,7 +198,9 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
                             ),
                           ),
                         ),
+                        //   ),
                       ),
+                      // ),
                     ),
                   ),
                 ],
@@ -127,4 +211,14 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
       ),
     );
   }
+}
+
+class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  Size get preferredSize => Size(0.0, 0.0);
 }

@@ -4,10 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"regexp"
+	"strings"
 
 	bip39 "github.com/tyler-smith/go-bip39"
 
 	"nimona.io/pkg/crypto"
+)
+
+var (
+	charRegex  = regexp.MustCompile("[^a-zA-Z ]+")
+	spaceRegex = regexp.MustCompile("\\s+")
 )
 
 type (
@@ -35,17 +42,44 @@ func CreateNewIdentity(name string) *Identity {
 }
 
 func CreateNewIdentityString() string {
-	fmt.Println(">>> !!!!!!!")
 	k, _ := crypto.GenerateEd25519PrivateKey()
 	m, _ := bip39.NewMnemonic(k.Bytes())
 	id := Identity{
 		PrivateKey:         k.String(),
 		PrivateKeyMnemonic: m,
 		PublicKey:          k.PublicKey().String(),
-		// Name:               name,
 	}
 	b, _ := json.Marshal(id)
 	return string(b)
+}
+
+func ImportNewIdentityString(mnemonic string) (string, error) {
+	mnemonicClean := mnemonic
+	mnemonicClean = charRegex.ReplaceAllString(mnemonicClean, " ")
+	mnemonicClean = spaceRegex.ReplaceAllString(mnemonicClean, " ")
+	mnemonicClean = strings.TrimSpace(mnemonicClean)
+	fmt.Println("...")
+	fmt.Println("...")
+	fmt.Println("...")
+	fmt.Println("-", mnemonicClean)
+	s, err := bip39.EntropyFromMnemonic(mnemonicClean)
+	if err != nil {
+		fmt.Println("!!!! ERR", err)
+		fmt.Println("!!!! ERR", err)
+		fmt.Println("!!!! ERR", err)
+		fmt.Println("!!!! ERR", err)
+		fmt.Println("!!!! ERR", err)
+		return "", err
+	}
+	k := crypto.NewPrivateKey(s)
+	m, _ := bip39.NewMnemonic(k.Bytes())
+	id := Identity{
+		PrivateKey:         k.String(),
+		PrivateKeyMnemonic: m,
+		PublicKey:          k.PublicKey().String(),
+	}
+	b, _ := json.Marshal(id)
+	return string(b), nil
 }
 
 type (

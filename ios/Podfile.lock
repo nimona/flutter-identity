@@ -1,6 +1,4 @@
 PODS:
-  - file_picker (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
@@ -22,7 +20,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - file_picker (from `Pods/.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Pods/.symlinks/flutter/ios-release`)
   - flutter_plugin_android_lifecycle (from `Pods/.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_secure_storage (from `Pods/.symlinks/plugins/flutter_secure_storage/ios`)
@@ -35,8 +32,6 @@ DEPENDENCIES:
   - url_launcher_web (from `Pods/.symlinks/plugins/url_launcher_web/ios`)
 
 EXTERNAL SOURCES:
-  file_picker:
-    :path: Pods/.symlinks/plugins/file_picker/ios
   Flutter:
     :path: Pods/.symlinks/flutter/ios-release
   flutter_plugin_android_lifecycle:
@@ -59,7 +54,6 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/url_launcher_web/ios
 
 SPEC CHECKSUMS:
-  file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec

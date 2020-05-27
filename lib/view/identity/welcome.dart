@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth_device_credentials/local_auth.dart';
-import 'package:identity/data/repository.dart';
 
+import 'package:identity/data/repository.dart';
 import 'package:identity/view/identity/delayed_animation.dart';
+
 import 'package:identity_mobile/identity.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -51,37 +52,37 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Future<void> _authenticate() async {
     bool authenticated = false;
-    try {
-      setState(() {
-        _isAuthenticating = true;
-        _authorized = 'Authenticating';
-      });
-      authenticated = await auth.authenticate(
-          localizedReason: 'Authentication for Nimona Identity',
-          useErrorDialogs: true,
-          stickyAuth: true);
-      setState(() {
-        _isAuthenticated = false;
-        _isAuthenticating = false;
-        _authorized = 'Authenticating';
-      });
-    } on PlatformException catch (e) {
-      print(e);
-    }
+    // try {
+    //   setState(() {
+    //     _isAuthenticating = true;
+    //     _authorized = 'Authenticating';
+    //   });
+    //   authenticated = await auth.authenticate(
+    //       localizedReason: 'Authentication for Nimona Identity',
+    //       useErrorDialogs: true,
+    //       stickyAuth: true);
+    //   setState(() {
+    //     _isAuthenticated = false;
+    //     _isAuthenticating = false;
+    //     _authorized = 'Authenticating';
+    //   });
+    // } on PlatformException catch (e) {
+    //   print(e);
+    // }
     if (!mounted) return;
 
     final String message = authenticated ? 'Authorized' : 'Not Authorized';
     setState(() {
-      if (_hasIdentity && authenticated) {
+      // if (_hasIdentity && authenticated) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/main",
           (_) => false,
         );
         return;
-      }
-      _isAuthenticated = authenticated;
-      _authorized = message;
+      // }
+      // _isAuthenticated = authenticated;
+      // _authorized = message;
     });
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:identity/data/repository.dart';
 import 'package:identity/data/ws_model/daemon_info_response.dart';
+import 'package:identity_mobile/identity_mobile.dart';
 
 class IdentityLoadScreen extends StatefulWidget {
   @override
@@ -25,6 +26,8 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
   void dispose() {
     super.dispose();
   }
+
+  String _hasError;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
               Text(
                 'Use existing identity.',
                 textAlign: TextAlign.left,
-                style: textTheme.headline3,
+                style: textTheme.headline5,
               ),
               SizedBox(
                 height: 10,
@@ -59,32 +62,33 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
               Text(
                 'Please paste or type in your mnemonic seed.',
                 textAlign: TextAlign.left,
-                style: textTheme.bodyText1,
+                // style: textTheme.bodyText1,
               ),
               Text(
                 'Line breaks, numbers, and special characters will be ignored.',
                 textAlign: TextAlign.left,
-                style: textTheme.bodyText1,
+                // style: textTheme.bodyText1,
               ),
               SizedBox(
                 height: 20,
               ),
               TextField(
-                minLines: 2,
+                minLines: 10,
                 maxLines: 10,
                 style: TextStyle(
                   fontFamily: "Courier",
                 ),
                 controller: mnemonicPhraseCtrl,
                 decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                      borderSide: new BorderSide(color: Color(0xFF4d85ff)),
-                    ),
-                    labelText: 'Mnemonic phrase',
-                    labelStyle: TextStyle(
-                      fontFamily: textTheme.bodyText1.fontFamily,
-                      fontSize: textTheme.headline6.fontSize,
-                    )),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Color(0xFF4d85ff)),
+                  ),
+                  labelText: 'Mnemonic phrase',
+                  labelStyle: TextStyle(
+                    // fontFamily: textTheme.bodyText1.fontFamily,
+                    fontSize: textTheme.headline6.fontSize,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 15),
@@ -94,27 +98,44 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
                   ),
                   padding: EdgeInsets.all(15),
                   onPressed: () {
-                    try {
-                      Repository.get()
-                          .identityLoad(
-                        mnemonicPhraseCtrl.text,
-                      )
-                          .then(
-                        (value) {
-                          sleep(const Duration(seconds: 1));
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            "/main",
-                            (_) => false,
-                          );
-                          // Navigator.pushNamed(context, '/main');
-                        },
-                      );
-                    } catch (e) {
-                      print("could not load identity, err=" + e.toString());
-                      return;
-                    }
-                    print("loaded id");
+                    setState(() {
+                      _hasError = "";
+                    });
+                    IdentityMobile.importNewIdentityString(
+                      mnemonicPhraseCtrl.text,
+                    ).then(
+                      (identity) {
+                        print("____");
+                        print("____");
+                        print(identity.privateKey);
+                        Repository.get().putIdentity(identity).then(
+                          (v) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              "/main",
+                              (_) => false,
+                            );
+                          },
+                        );
+                      },
+                    ).catchError(
+                      (e) {
+                        setState(() {
+                          _hasError = e.toString();
+                        });
+                      },
+                    );
+                    //   (value) {
+                    //     sleep(const Duration(seconds: 1));
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //   context,
+                    //   "/main",
+                    //   (_) => false,
+                    // );
+                    //     // Navigator.pushNamed(context, '/main');
+                    //   },
+                    // );
+                    // }
                   },
                   color: Color(0xFF6697FF),
                   child: Container(
@@ -130,6 +151,19 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              () {
+                if (_hasError == null || _hasError == "") {
+                  return Container();
+                }
+                return Text(
+                  _hasError ?? "",
+                  textAlign: TextAlign.left,
+                  // style: textTheme.bodyText1,
+                );
+              }(),
             ],
           ),
         ),
