@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/data/repository.dart';
+import 'package:identity/data/repository.dart';
 
 class AddConversationWidget extends StatelessWidget {
   const AddConversationWidget({

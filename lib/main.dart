@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:mochi/master_detail_layout.dart';
-import 'package:mochi/view/identity/identity_create.dart';
-import 'package:mochi/view/identity/identity_created.dart';
-import 'package:mochi/view/identity/identity_load.dart';
-import 'package:mochi/view/identity/welcome.dart';
+import 'package:identity/master_detail_layout.dart';
+import 'package:identity/view/identity/identity_create.dart';
+import 'package:identity/view/identity/identity_created.dart';
+import 'package:identity/view/identity/identity_load.dart';
+import 'package:identity/view/identity/welcome.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mochi',
+      title: 'Identity',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {

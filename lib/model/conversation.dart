@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/model/message.dart';
+import 'package:identity/model/message.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mochi/model/participant.dart';
+import 'package:identity/model/participant.dart';
 
 part 'conversation.g.dart';
 

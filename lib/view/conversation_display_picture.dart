@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/data/wsdatastore.dart';
-import 'package:mochi/model/conversation.dart';
+import 'package:identity/data/wsdatastore.dart';
+import 'package:identity/model/conversation.dart';
 
 class ConversationDisplayPicture extends StatelessWidget {
   const ConversationDisplayPicture({

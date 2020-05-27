@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth_device_credentials/local_auth.dart';
-import 'package:mochi/data/repository.dart';
+import 'package:identity/data/repository.dart';
 
-import 'package:mochi/view/identity/delayed_animation.dart';
-import 'package:mochi_mobile/identity.dart';
+import 'package:identity/view/identity/delayed_animation.dart';
+import 'package:identity_mobile/identity.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -187,7 +187,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       () {
                         if (_hasIdentity) {
                           if (_isAuthenticating || !_isAuthenticated) {
-                            return RaisedButton(
+                            return   DelayedAnimation(
+                              child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -208,6 +209,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     ),
                                   ),
                                 ),
+                              ),
                               ),
                             );
                           }

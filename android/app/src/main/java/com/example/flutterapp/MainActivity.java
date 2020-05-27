@@ -1,4 +1,4 @@
-package io.nimona.mochi;
+package io.nimona.identity;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

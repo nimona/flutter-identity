@@ -3,30 +3,33 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/services.dart';
-import 'package:mochi/data/datastore.dart';
-import 'package:mochi/data/ws_model/contact_add_request.dart';
-import 'package:mochi/data/ws_model/contact_update_request.dart';
-import 'package:mochi/data/ws_model/contacts_get_request.dart';
-import 'package:mochi/data/ws_model/conversation_join_request.dart';
-import 'package:mochi/data/ws_model/conversation_start_request.dart';
-import 'package:mochi/data/ws_model/conversation_update_request.dart';
-import 'package:mochi/data/ws_model/conversations_get_request.dart';
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
-import 'package:mochi/data/ws_model/identity_create_request.dart';
-import 'package:mochi/data/ws_model/identity_load_request.dart';
-import 'package:mochi/data/ws_model/message_create_request.dart';
-import 'package:mochi/data/ws_model/messages_get_request.dart';
-import 'package:mochi/data/ws_model/own_profile_get_request.dart';
-import 'package:mochi/data/ws_model/own_profile_update_request.dart';
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/conversation.dart';
-import 'package:mochi/model/message.dart';
-import 'package:mochi/model/message_block.dart';
-import 'package:mochi/model/own_profile.dart';
-import 'package:mochi_mobile/mochi_mobile.dart';
+import 'package:identity/data/datastore.dart';
+import 'package:identity/data/ws_model/contact_add_request.dart';
+import 'package:identity/data/ws_model/contact_update_request.dart';
+import 'package:identity/data/ws_model/contacts_get_request.dart';
+import 'package:identity/data/ws_model/conversation_join_request.dart';
+import 'package:identity/data/ws_model/conversation_start_request.dart';
+import 'package:identity/data/ws_model/conversation_update_request.dart';
+import 'package:identity/data/ws_model/conversations_get_request.dart';
+import 'package:identity/data/ws_model/daemon_info_response.dart';
+import 'package:identity/data/ws_model/identity_create_request.dart';
+import 'package:identity/data/ws_model/identity_load_request.dart';
+import 'package:identity/data/ws_model/message_create_request.dart';
+import 'package:identity/data/ws_model/messages_get_request.dart';
+import 'package:identity/data/ws_model/own_profile_get_request.dart';
+import 'package:identity/data/ws_model/own_profile_update_request.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/conversation.dart';
+import 'package:identity/model/message.dart';
+import 'package:identity/model/message_block.dart';
+import 'package:identity/model/own_profile.dart';
 import 'package:web_socket_channel/io.dart';
 
-const daemonChannel = const MethodChannel('mochi.io/daemon');
+import 'package:identity_mobile/identity.dart';
+import 'package:identity_mobile/identity_mobile.dart';
+
+
+const daemonChannel = const MethodChannel('identity.io/daemon');
 const daemonPeerPort = 10800;
 const daemonApiPort = 10100;
 const daemonApiWsUrl = 'ws://localhost:';
@@ -49,6 +52,7 @@ class WsDataStore implements DataStore {
     ws.sink.close();
   }
 
+
   @override
   void updateContact(String identityKey, String alias) {
     final ws = IOWebSocketChannel.connect(
@@ -65,7 +69,7 @@ class WsDataStore implements DataStore {
 
   @override
   Stream<Contact> getContacts() async* {
-    print("started daemon, resp=" + await MochiMobile.startDaemon());
+    print("started daemon, resp=" + await IdentityMobile.startDaemon());
     final ws = IOWebSocketChannel.connect(
       "$daemonApiWsUrl$daemonApiPort",
     );
@@ -125,7 +129,7 @@ class WsDataStore implements DataStore {
   Stream<List<MessageBlock>> getMessagesForConversation(
     String conversationId,
   ) async* {
-    print("started daemon, resp=" + await MochiMobile.startDaemon());
+    print("started daemon, resp=" + await IdentityMobile.startDaemon());
     List<MessageBlock> list = [];
     final ws = IOWebSocketChannel.connect(
       "$daemonApiWsUrl$daemonApiPort",
@@ -261,7 +265,7 @@ class WsDataStore implements DataStore {
 
   @override
   Stream<Conversation> getConversations() async* {
-    print("started daemon, resp=" + await MochiMobile.startDaemon());
+    print("started daemon, resp=" + await IdentityMobile.startDaemon());
     final ws = IOWebSocketChannel.connect(
       "$daemonApiWsUrl$daemonApiPort",
     );
@@ -303,7 +307,7 @@ class WsDataStore implements DataStore {
 
   @override
   Future<DaemonInfoResponse> daemonInfoGet() async {
-     print("started daemon, resp=" + await MochiMobile.startDaemon());
+     print("started daemon, resp=" + await IdentityMobile.startDaemon());
      var resp = await http.get(
       "$daemonApiHttpUrl$daemonApiPort/daemon-info",
     );

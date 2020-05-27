@@ -1,4 +1,4 @@
-package io.nimona.mochi.flutter_mochi
+package io.nimona.identity.flutter_identity
 
 import io.flutter.embedding.android.FlutterActivity
 

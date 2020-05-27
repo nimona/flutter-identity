@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mochi/data/ws_model/base_request.dart';
+import 'package:identity/data/ws_model/base_request.dart';
 
 part 'daemon_info_response.g.dart';
 

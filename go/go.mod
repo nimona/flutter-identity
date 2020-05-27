@@ -1,4 +1,4 @@
-module mochi.io
+module identity.io
 
 go 1.14
 

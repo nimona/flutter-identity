@@ -1,4 +1,4 @@
-name: mochi
+name: identity
 description: A new Flutter application.
 version: 0.1.1
 
@@ -8,8 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mochi_mobile:
-    path: ./plugins/mochi_mobile
+  identity_mobile:
+    path: ./plugins/identity_mobile
   cupertino_icons: ^0.1.2
   faker: ^1.2.1
   base58check: ^1.0.1

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/data/wsdatastore.dart';
-import 'package:mochi/model/own_profile.dart';
+import 'package:identity/data/wsdatastore.dart';
+import 'package:identity/model/own_profile.dart';
 
 class OwnProfileDisplayPicture extends StatelessWidget {
   const OwnProfileDisplayPicture({

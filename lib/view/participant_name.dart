@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:menu/menu.dart';
-import 'package:mochi/data/repository.dart';
-import 'package:mochi/view/dialog_create_contact.dart';
+import 'package:identity/data/repository.dart';
+import 'package:identity/view/dialog_create_contact.dart';
 
 class ParticipantName extends StatelessWidget {
   const ParticipantName({

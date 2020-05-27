@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/data/wsdatastore.dart';
+import 'package:identity/data/wsdatastore.dart';
 
 class ProfileDisplayPicture extends StatelessWidget {
   const ProfileDisplayPicture({

@@ -6,8 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:mochi/model/own_profile.dart';
-import 'package:mochi/view/own_profile_display_picture.dart';
+import 'package:identity/model/own_profile.dart';
+import 'package:identity/view/own_profile_display_picture.dart';
 
 class UpdateOwnProfileDialog extends StatefulWidget {
   const UpdateOwnProfileDialog({

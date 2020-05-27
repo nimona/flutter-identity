@@ -1,8 +1,8 @@
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/conversation.dart';
-import 'package:mochi/model/message_block.dart';
-import 'package:mochi/model/own_profile.dart';
+import 'package:identity/data/ws_model/daemon_info_response.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/conversation.dart';
+import 'package:identity/model/message_block.dart';
+import 'package:identity/model/own_profile.dart';
 
 abstract class DataStore {
   void createContact(String identityKey, String alias);

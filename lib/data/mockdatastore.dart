@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:mochi/data/datastore.dart';
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/conversation.dart';
-import 'package:mochi/model/fake.dart';
-import 'package:mochi/model/message.dart';
-import 'package:mochi/model/message_block.dart';
-import 'package:mochi/model/own_profile.dart';
+import 'package:identity/data/datastore.dart';
+import 'package:identity/data/ws_model/daemon_info_response.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/conversation.dart';
+import 'package:identity/model/fake.dart';
+import 'package:identity/model/message.dart';
+import 'package:identity/model/message_block.dart';
+import 'package:identity/model/own_profile.dart';
 
 class MockDataStore implements DataStore {
   @override

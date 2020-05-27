@@ -6,12 +6,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mochi/data/repository.dart';
-import 'package:mochi/model/own_profile.dart';
-import 'package:mochi/view/dialog_modify_profile.dart';
-import 'package:mochi/view/own_profile_display_picture.dart';
-import 'package:mochi_mobile/mochi_mobile.dart';
-import 'package:mochi_mobile/identity.dart';
+import 'package:identity/data/repository.dart';
+import 'package:identity_mobile/identity.dart';
+import 'package:identity_mobile/identity_mobile.dart';
 
 String base64String(Uint8List data) {
   return base64Encode(data);
@@ -191,7 +188,7 @@ Container(
                     //   nameController.text,
                     //   displayPicture,
                     // );
-                      MochiMobile.createNewIdentity(
+                      IdentityMobile.createNewIdentity(
                       name,
                     ).then((Identity identity) {
                       Repository.get().putIdentity(identity).then((value) {
@@ -217,7 +214,7 @@ Container(
               //     String displayPicture,
               //   ) {
               //     if (update) {
-              //       MochiMobile.createNewIdentity(
+              //       IdentityMobile.createNewIdentity(
               //         name,
               //       ).then((Identity identity) {
               //         Repository.get().putIdentity(identity).then((value) {

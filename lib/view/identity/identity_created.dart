@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mochi/data/repository.dart';
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
-import 'package:mochi_mobile/mochi_mobile.dart';
-import 'package:mochi_mobile/identity.dart';
+import 'package:identity/data/repository.dart';
+import 'package:identity_mobile/identity.dart';
+
 
 class IdentityCreatedScreen extends StatefulWidget {
   @override
@@ -178,7 +174,7 @@ Future<Identity> identityFuture;
                           child: Text(
                             'Ready',
                             style: TextStyle(
-                              fontSize: 20.0,
+                              // fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/profile.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/profile.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'participant.g.dart';

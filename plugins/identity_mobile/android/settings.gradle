@@ -1,0 +1,4 @@
+rootProject.name = 'identity_mobile'
+include ':mobileapi'
+// dir must be set explicitly so this file can be included in the example app build.
+project(':mobileapi').projectDir = file('mobileapi')

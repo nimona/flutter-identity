@@ -6,9 +6,9 @@ PODS:
     - Flutter
   - flutter_secure_storage (3.3.1):
     - Flutter
-  - local_auth_device_credentials (0.0.1):
+  - identity_mobile (0.0.1):
     - Flutter
-  - mochi_mobile (0.0.1):
+  - local_auth_device_credentials (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
@@ -26,8 +26,8 @@ DEPENDENCIES:
   - Flutter (from `Pods/.symlinks/flutter/ios`)
   - flutter_plugin_android_lifecycle (from `Pods/.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_secure_storage (from `Pods/.symlinks/plugins/flutter_secure_storage/ios`)
+  - identity_mobile (from `Pods/.symlinks/plugins/identity_mobile/ios`)
   - local_auth_device_credentials (from `Pods/.symlinks/plugins/local_auth_device_credentials/ios`)
-  - mochi_mobile (from `Pods/.symlinks/plugins/mochi_mobile/ios`)
   - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `Pods/.symlinks/plugins/path_provider_macos/ios`)
   - url_launcher (from `Pods/.symlinks/plugins/url_launcher/ios`)
@@ -43,10 +43,10 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/flutter_plugin_android_lifecycle/ios
   flutter_secure_storage:
     :path: Pods/.symlinks/plugins/flutter_secure_storage/ios
+  identity_mobile:
+    :path: Pods/.symlinks/plugins/identity_mobile/ios
   local_auth_device_credentials:
     :path: Pods/.symlinks/plugins/local_auth_device_credentials/ios
-  mochi_mobile:
-    :path: Pods/.symlinks/plugins/mochi_mobile/ios
   path_provider:
     :path: Pods/.symlinks/plugins/path_provider/ios
   path_provider_macos:
@@ -63,8 +63,8 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  identity_mobile: e71daa50005483518fdbbed7a3e91990612cb405
   local_auth_device_credentials: 7ea08f7e3a5cd32bd628d1f8ee60e22f9d78f668
-  mochi_mobile: 8312144cc50dac8f007a5dabee9eab4c30b86695
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626

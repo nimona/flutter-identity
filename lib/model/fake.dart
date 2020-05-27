@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:faker/faker.dart';
 import 'package:crypto/crypto.dart';
 import "package:base58check/base58.dart";
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/conversation.dart';
-import 'package:mochi/model/local_peer.dart';
-import 'package:mochi/model/message.dart';
-import 'package:mochi/model/message_block.dart';
-import 'package:mochi/model/participant.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/conversation.dart';
+import 'package:identity/model/local_peer.dart';
+import 'package:identity/model/message.dart';
+import 'package:identity/model/message_block.dart';
+import 'package:identity/model/participant.dart';
 import 'dart:math';
 
-import 'package:mochi/model/profile.dart';
+import 'package:identity/model/profile.dart';
 
 const String _bitcoinAlphabet =
     "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";

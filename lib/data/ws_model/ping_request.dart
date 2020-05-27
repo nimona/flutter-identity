@@ -1,4 +1,4 @@
-import 'package:mochi/data/ws_model/base_request.dart';
+import 'package:identity/data/ws_model/base_request.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ping_request.g.dart';

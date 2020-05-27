@@ -2,15 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mochi/data/datastore.dart';
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
-import 'package:mochi/data/wsdatastore.dart';
-import 'package:mochi/model/contact.dart';
-import 'package:mochi/model/conversation.dart';
-import 'package:mochi/model/message_block.dart';
-import 'package:mochi/model/own_profile.dart';
-import 'package:mochi_mobile/identity.dart';
-import 'package:mochi_mobile/mochi_mobile.dart';
+import 'package:identity/data/datastore.dart';
+import 'package:identity/data/ws_model/daemon_info_response.dart';
+import 'package:identity/data/wsdatastore.dart';
+import 'package:identity/model/contact.dart';
+import 'package:identity/model/conversation.dart';
+import 'package:identity/model/message_block.dart';
+import 'package:identity/model/own_profile.dart';
+import 'package:identity_mobile/identity.dart';
 
 class Repository {
   static final Repository _repo = new Repository._internal();

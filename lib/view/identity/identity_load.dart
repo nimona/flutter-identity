@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:mochi/data/repository.dart';
-import 'package:mochi/data/ws_model/daemon_info_response.dart';
+import 'package:identity/data/repository.dart';
+import 'package:identity/data/ws_model/daemon_info_response.dart';
 
 class IdentityLoadScreen extends StatefulWidget {
   @override

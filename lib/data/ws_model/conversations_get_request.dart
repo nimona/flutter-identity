@@ -1,4 +1,4 @@
-import 'package:mochi/data/ws_model/base_request.dart';
+import 'package:identity/data/ws_model/base_request.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'conversations_get_request.g.dart';

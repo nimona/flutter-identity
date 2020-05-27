@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'package:mochi/data/repository.dart';
+import 'package:identity/data/repository.dart';
 
-import 'package:mochi_mobile/identity.dart';
+import 'package:identity_mobile/identity.dart';
 
 
 class MasterDetailLayout extends StatefulWidget {
@@ -41,6 +41,7 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+          brightness: Brightness.light, 
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
@@ -75,7 +76,7 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
                   Text(
                     'Your public key',
                     textAlign: TextAlign.left,
-                    style: textTheme.bodyText1,
+                    // style: textTheme.bodyText1,
                   ),
                   Text(
                     snapshot.data.publicKey,
@@ -110,7 +111,7 @@ class _MasterDetailLayoutState extends State<MasterDetailLayout> {
                           child: Text(
                             'Wipe secure storage',
                             style: TextStyle(
-                              fontSize: textTheme.bodyText2.fontSize,
+                              // fontSize: textTheme.bodyText2.fontSize,
                               color: Colors.white,
                             ),
                           ),
