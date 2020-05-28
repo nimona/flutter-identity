@@ -54,6 +54,22 @@ class Repository {
     return identity;
   }
 
+  Future<void> setMustAuthenticate(bool v) async {
+    if (v == true) {
+      storage.write(key: "authentication", value: "true");
+    } else {
+      storage.delete(key: "authentication");
+    }
+  }
+
+  Future<bool> getMustAuthenticate() async {
+    String idString = await storage.read(key: "authentication");
+    if (idString != null && idString == "true") {
+      return true;
+    }
+    return false;
+  }
+
   Future<void> removeIdentity() async {
     return storage.deleteAll();
   }

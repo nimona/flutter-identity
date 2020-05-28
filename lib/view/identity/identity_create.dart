@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -39,25 +39,24 @@ class _IdentityCreateScreenState extends State<IdentityCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void _openFileExplorer() async {
-      String _path;
-      Map<String, String> _paths;
-      try {
-        _paths = null;
-        _path = await FilePicker.getFilePath(
-          type: FileType.any,
-        );
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return;
-      setState(() {
-        displayPicture = base64String(File(_path).readAsBytesSync());
-      });
-    }
+    // void _openFileExplorer() async {
+    //   String _path;
+    //   Map<String, String> _paths;
+    //   try {
+    //     _paths = null;
+    //     _path = await FilePicker.getFilePath(
+    //       type: FileType.any,
+    //     );
+    //   } on PlatformException catch (e) {
+    //     print("Unsupported operation" + e.toString());
+    //   }
+    //   if (!mounted) return;
+    //   setState(() {
+    //     displayPicture = base64String(File(_path).readAsBytesSync());
+    //   });
+    // }
 
     final TextTheme textTheme = Theme.of(context).textTheme;
-
 
     final nameController = TextEditingController(    );
     // final displayPictureController = TextEditingController(    );
@@ -234,17 +233,17 @@ Container(
     return base64Encode(data);
   }
 
-  Future<String> _selectFile() async {
-    String _path;
-    try {
-      _path = await FilePicker.getFilePath(
-        type: FileType.image,
-      );
-    } on PlatformException catch (e) {
-      print("Unsupported operation" + e.toString());
-    }
-    var b = File(_path).readAsBytesSync();
-    var s = base64String(b);
-    return s;
-  }
+  // Future<String> _selectFile() async {
+  //   String _path;
+  //   try {
+  //     _path = await FilePicker.getFilePath(
+  //       type: FileType.image,
+  //     );
+  //   } on PlatformException catch (e) {
+  //     print("Unsupported operation" + e.toString());
+  //   }
+  //   var b = File(_path).readAsBytesSync();
+  //   var s = base64String(b);
+  //   return s;
+  // }
 }

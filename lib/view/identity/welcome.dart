@@ -19,8 +19,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   List<BiometricType> _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
-  bool _isAuthenticated = false;
+  // bool _isAuthenticated = false;
   bool _hasIdentity = false;
+  bool _mustAuthenticate = false;
 
   Future<void> _checkBiometrics() async {
     bool canCheckBiometrics;
@@ -52,37 +53,37 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Future<void> _authenticate() async {
     bool authenticated = false;
-    // try {
-    //   setState(() {
-    //     _isAuthenticating = true;
-    //     _authorized = 'Authenticating';
-    //   });
-    //   authenticated = await auth.authenticate(
-    //       localizedReason: 'Authentication for Nimona Identity',
-    //       useErrorDialogs: true,
-    //       stickyAuth: true);
-    //   setState(() {
-    //     _isAuthenticated = false;
-    //     _isAuthenticating = false;
-    //     _authorized = 'Authenticating';
-    //   });
-    // } on PlatformException catch (e) {
-    //   print(e);
-    // }
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _authorized = 'Authenticating';
+      });
+      authenticated = await auth.authenticate(
+          localizedReason: 'Authentication for Nimona Identity',
+          useErrorDialogs: true,
+          stickyAuth: true);
+      setState(() {
+        // _isAuthenticated = false;
+        _isAuthenticating = false;
+        _authorized = 'Authenticating';
+      });
+    } on PlatformException catch (e) {
+      print(e);
+    }
     if (!mounted) return;
 
     final String message = authenticated ? 'Authorized' : 'Not Authorized';
     setState(() {
-      // if (_hasIdentity && authenticated) {
+      if (_hasIdentity && authenticated) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/main",
           (_) => false,
         );
         return;
-      // }
-      // _isAuthenticated = authenticated;
-      // _authorized = message;
+      }
+      // _isAuthenticated = false;
+      _authorized = message;
     });
   }
 
@@ -93,12 +94,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
+    Repository.get().getMustAuthenticate().then((v) {
+      if (v == false) {
+        Future.delayed(const Duration(milliseconds: 2500), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            "/main",
+            (_) => false,
+          );
+        });
+      } else {
+        _authenticate();
+      }
+      _mustAuthenticate = v;
+    });
     identity = Repository.get().getIdentity();
     identity.then((Identity id) {
       if (id != null && id.privateKey != null && id.privateKey != "") {
         setState(() {
           _hasIdentity = true;
-          // _authenticate();
         });
         // auth
         //     .authenticateWithBiometrics(
@@ -186,10 +200,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         height: 20.0,
                       ),
                       () {
-                        if (_hasIdentity) {
-                          if (_isAuthenticating || !_isAuthenticated) {
-                            return   DelayedAnimation(
-                              child: RaisedButton(
+                        if (_hasIdentity && _mustAuthenticate) {
+                          return DelayedAnimation(
+                            child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -204,16 +217,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   child: Text(
                                     'Authenticate',
                                     style: TextStyle(
-                                        // fontSize: textTheme.bodyText1.fontSize,
-                                        // fontWeight: FontWeight.bold,
-                                        color: Color(0xFF6697FF),
+                                      // fontSize: textTheme.bodyText1.fontSize,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6697FF),
                                     ),
                                   ),
                                 ),
                               ),
-                              ),
-                            );
-                          }
+                            ),
+                          );
+                        }
+                        if (_hasIdentity) {
                           return Container();
                         }
                         return Column(
