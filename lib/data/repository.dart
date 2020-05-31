@@ -48,8 +48,6 @@ class Repository {
     if (idString == null || idString == "") {
       return Identity();
     }
-    print("idString");
-    print(idString);
     Identity identity = Identity.fromJson(json.decode(idString));
     return identity;
   }

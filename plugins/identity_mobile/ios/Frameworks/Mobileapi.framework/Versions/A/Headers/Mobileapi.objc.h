@@ -47,6 +47,8 @@ FOUNDATION_EXPORT NSString* _Nonnull MobileapiCreateNewIdentityString(void);
 
 FOUNDATION_EXPORT NSString* _Nonnull MobileapiImportNewIdentityString(NSString* _Nullable mnemonic, NSError* _Nullable* _Nullable error);
 
+FOUNDATION_EXPORT NSString* _Nonnull MobileapiSignAuthorizationRequestString(NSString* _Nullable key, NSString* _Nullable asr, NSError* _Nullable* _Nullable error);
+
 FOUNDATION_EXPORT NSString* _Nonnull MobileapiStartDaemon(void);
 
 #endif

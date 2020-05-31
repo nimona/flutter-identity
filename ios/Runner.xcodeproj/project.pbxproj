@@ -234,6 +234,9 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
 				"${PODS_ROOT}/.symlinks/flutter/ios-release/Flutter.framework",
+				"${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/barcode_scan/barcode_scan.framework",
 				"${BUILT_PRODUCTS_DIR}/flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.framework",
 				"${BUILT_PRODUCTS_DIR}/flutter_secure_storage/flutter_secure_storage.framework",
 				"${BUILT_PRODUCTS_DIR}/identity_mobile/identity_mobile.framework",
@@ -244,6 +247,9 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MTBBarcodeScanner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/barcode_scan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_plugin_android_lifecycle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_secure_storage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/identity_mobile.framework",
@@ -433,7 +439,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LNCQ7FYZE7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -447,7 +453,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = io.nimona.identity;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -469,7 +475,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LNCQ7FYZE7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -483,7 +489,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = io.nimona.identity;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";

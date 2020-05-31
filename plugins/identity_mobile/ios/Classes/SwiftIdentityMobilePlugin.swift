@@ -36,7 +36,41 @@ public class SwiftIdentityMobilePlugin: NSObject, FlutterPlugin {
                     result(
                         FlutterError.init(
                             code: "BAD_ARGS", 
-                            message: "Wrong arg count (getDb expects 2 args): " + args.count.description,
+                            message: "Wrong arg count: " + args.count.description,
+                            details: nil
+                        )
+                    )
+                }
+            } else {
+                result(
+                    FlutterError.init(
+                        code: "BAD_ARGS",
+                        message: "Wrong argument types",
+                        details: nil
+                    )
+                )
+            }
+        case "signAuthorizationRequestString":
+            if let args = call.arguments as? [String] {
+                if args.count == 2 {
+                    var error : NSError?
+                    let res = MobileapiSignAuthorizationRequestString(args[0], args[1], &error)
+                    if let errorMessage = error?.userInfo.description {
+                        result(
+                            FlutterError.init(
+                                code: "NATIVE_ERR",
+                                message: "Error: " + errorMessage,
+                                details: nil
+                            )
+                        )
+                    } else {
+                        result(res)
+                    }
+                } else {
+                    result(
+                        FlutterError.init(
+                            code: "BAD_ARGS", 
+                            message: "Wrong arg count: " + args.count.description,
                             details: nil
                         )
                     )

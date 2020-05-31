@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera permission is required for QR code scanning.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME) Authentication with TouchId or FaceID</string>
 	<key>UILaunchStoryboardName</key>

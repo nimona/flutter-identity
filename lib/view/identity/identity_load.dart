@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:identity/data/repository.dart';
 import 'package:identity/data/ws_model/daemon_info_response.dart';
@@ -11,7 +13,8 @@ class IdentityLoadScreen extends StatefulWidget {
   _IdentityLoadScreenState createState() => _IdentityLoadScreenState();
 }
 
-class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
+class _IdentityLoadScreenState extends State<IdentityLoadScreen>
+    with WidgetsBindingObserver {
   Future<DaemonInfoResponse> daemonInfo;
   TextEditingController mnemonicPhraseCtrl = TextEditingController();
 
@@ -26,6 +29,9 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
   void dispose() {
     super.dispose();
   }
+
+  FocusNode _focusNode = new FocusNode();
+  final _textKey = GlobalKey<FormState>();
 
   String _hasError;
 
@@ -73,19 +79,37 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen> {
                 height: 20,
               ),
               TextField(
-                minLines: 10,
-                maxLines: 10,
+                minLines: 1,
+                maxLines: 24,
                 style: TextStyle(
                   fontFamily: "Courier",
                 ),
+                key: _textKey,
+                focusNode: _focusNode,
                 controller: mnemonicPhraseCtrl,
                 decoration: new InputDecoration(
                   border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Color(0xFF4d85ff)),
                   ),
+                  suffixIcon: IconButton(
+                    // alignment: Alignment.topRight,
+                    icon: Icon(MaterialCommunityIcons.qrcode_scan),
+                    onPressed: () {
+                      _focusNode.unfocus();
+                      BarcodeScanner.scan().then(
+                        (v) {
+                          if (v.rawContent != "") {
+                            // setState(() {
+                            mnemonicPhraseCtrl.text = v.rawContent;
+                            // });
+                          }
+                        },
+                      );
+                    },
+                  ),
                   labelText: 'Mnemonic phrase',
                   labelStyle: TextStyle(
-                    // fontFamily: textTheme.bodyText1.fontFamily,
+                    fontFamily: textTheme.bodyText1.fontFamily,
                     fontSize: textTheme.headline6.fontSize,
                   ),
                 ),

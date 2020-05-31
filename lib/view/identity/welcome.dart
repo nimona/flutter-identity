@@ -19,7 +19,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   List<BiometricType> _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
-  // bool _isAuthenticated = false;
   bool _hasIdentity = false;
   bool _mustAuthenticate = false;
 
@@ -82,7 +81,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         );
         return;
       }
-      // _isAuthenticated = false;
       _authorized = message;
     });
   }
@@ -94,43 +92,36 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    Repository.get().getMustAuthenticate().then((v) {
-      if (v == false) {
-        Future.delayed(const Duration(milliseconds: 2500), () {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            "/main",
-            (_) => false,
-          );
-        });
-      } else {
-        _authenticate();
-      }
-      _mustAuthenticate = v;
-    });
+
     identity = Repository.get().getIdentity();
-    identity.then((Identity id) {
-      if (id != null && id.privateKey != null && id.privateKey != "") {
-        setState(() {
-          _hasIdentity = true;
-        });
-        // auth
-        //     .authenticateWithBiometrics(
-        //         localizedReason: 'Scan your fingerprint to authenticate',
-        //         useErrorDialogs: true,
-        //         stickyAuth: true)
-        //     .then((bool v) {
-        //   if (v == true) {
-        //     Navigator.pushNamedAndRemoveUntil(
-        //       context,
-        //       "/main",
-        //       (_) => false,
-        //     );
-        //   }
-        // });
-      }
-      return;
-    });
+    identity.then(
+      (Identity id) {
+        if (id != null && id.privateKey != null && id.privateKey != "") {
+          setState(() {
+            _hasIdentity = true;
+          });
+          if (_hasIdentity) {
+            Repository.get().getMustAuthenticate().then(
+              (v) {
+                if (v == false) {
+                  Future.delayed(const Duration(milliseconds: 2500), () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      "/main",
+                      (_) => false,
+                    );
+                  });
+                } else {
+                  _authenticate();
+                }
+                _mustAuthenticate = v;
+              },
+            );
+          }
+        }
+        return;
+      },
+    );
   }
 
   @override

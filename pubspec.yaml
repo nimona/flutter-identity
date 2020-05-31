@@ -34,6 +34,9 @@ dependencies:
   settings_ui: ^0.3.0
   qr_flutter: ^3.1.0
   flutter_icons: ^1.1.0
+  barcode_scan: ^3.0.1
+  focus_detector: ^1.0.2
+  progress_state_button: ^1.0.1
 
 dev_dependencies:
   flutter_test:

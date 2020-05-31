@@ -60,6 +60,37 @@ class IdentityMobile {
     return id;
     // return Identity("","","","");
   }
+
+  static Future<String> signAuthorizationRequestString(
+      String key, String asr) async {
+    // final asdf = _channel.invokeMethod('signAuthorizationRequestString', name);
+    // print(asdf);
+    String res = "erm";
+    try {
+      res = await _channel
+          .invokeMethod('signAuthorizationRequestString', [key, asr]);
+      if (res == null || res == "") {
+        return "something bad happened";
+      }
+    } catch (e) {
+      return e.toString();
+    }
+    // } catch (e) {
+    //   print("!!!!!!");
+    //   print(e);
+    //   throw e;
+    // }
+    // Identity id = Identity.fromJson(json.decode(idString));
+    // print("signAuthorizationRequestString");
+    // print("signAuthorizationRequestString");
+    // print("signAuthorizationRequestString");
+    // print(idString);
+    // print(id.privateKey);
+    // print(id.publicKey);
+
+    return res;
+    // return Identity("","","","");
+  }
 }
 
 // DateTime _timestamp(dynamic value) =>
