@@ -13,65 +13,24 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  Future<Identity> identity;
   final LocalAuthentication auth = LocalAuthentication();
-  bool _canCheckBiometrics;
-  List<BiometricType> _availableBiometrics;
-  String _authorized = 'Not Authorized';
-  bool _isAuthenticating = false;
   bool _hasIdentity = false;
   bool _mustAuthenticate = false;
 
-  Future<void> _checkBiometrics() async {
-    bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
-
-  Future<void> _getAvailableBiometrics() async {
-    List<BiometricType> availableBiometrics;
-    try {
-      availableBiometrics = await auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _availableBiometrics = availableBiometrics;
-    });
-  }
+  Future<Identity> identity;
 
   Future<void> _authenticate() async {
     bool authenticated = false;
     try {
-      setState(() {
-        _isAuthenticating = true;
-        _authorized = 'Authenticating';
-      });
       authenticated = await auth.authenticate(
           localizedReason: 'Authentication for Nimona Identity',
           useErrorDialogs: true,
           stickyAuth: true);
-      setState(() {
-        // _isAuthenticated = false;
-        _isAuthenticating = false;
-        _authorized = 'Authenticating';
-      });
     } on PlatformException catch (e) {
       print(e);
     }
     if (!mounted) return;
 
-    final String message = authenticated ? 'Authorized' : 'Not Authorized';
     setState(() {
       if (_hasIdentity && authenticated) {
         Navigator.pushNamedAndRemoveUntil(
@@ -81,12 +40,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         );
         return;
       }
-      _authorized = message;
     });
-  }
-
-  void _cancelAuthentication() {
-    auth.stopAuthentication();
   }
 
   @override
@@ -208,8 +162,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   child: Text(
                                     'Authenticate',
                                     style: TextStyle(
-                                      // fontSize: textTheme.bodyText1.fontSize,
-                                      // fontWeight: FontWeight.bold,
                                       color: Color(0xFF6697FF),
                                     ),
                                   ),

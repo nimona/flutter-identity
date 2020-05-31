@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:identity/data/repository.dart';
-import 'package:identity/data/ws_model/daemon_info_response.dart';
 import 'package:identity_mobile/identity_mobile.dart';
 
 class IdentityLoadScreen extends StatefulWidget {
@@ -15,14 +12,11 @@ class IdentityLoadScreen extends StatefulWidget {
 
 class _IdentityLoadScreenState extends State<IdentityLoadScreen>
     with WidgetsBindingObserver {
-  Future<DaemonInfoResponse> daemonInfo;
   TextEditingController mnemonicPhraseCtrl = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
-    daemonInfo = Repository.get().daemonInfoGet();
   }
 
   @override
@@ -68,12 +62,10 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
               Text(
                 'Please paste or type in your mnemonic seed.',
                 textAlign: TextAlign.left,
-                // style: textTheme.bodyText1,
               ),
               Text(
                 'Line breaks, numbers, and special characters will be ignored.',
                 textAlign: TextAlign.left,
-                // style: textTheme.bodyText1,
               ),
               SizedBox(
                 height: 20,
@@ -92,16 +84,13 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
                     borderSide: new BorderSide(color: Color(0xFF4d85ff)),
                   ),
                   suffixIcon: IconButton(
-                    // alignment: Alignment.topRight,
                     icon: Icon(MaterialCommunityIcons.qrcode_scan),
                     onPressed: () {
                       _focusNode.unfocus();
                       BarcodeScanner.scan().then(
                         (v) {
                           if (v.rawContent != "") {
-                            // setState(() {
                             mnemonicPhraseCtrl.text = v.rawContent;
-                            // });
                           }
                         },
                       );
@@ -149,17 +138,6 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
                         });
                       },
                     );
-                    //   (value) {
-                    //     sleep(const Duration(seconds: 1));
-                    // Navigator.pushNamedAndRemoveUntil(
-                    //   context,
-                    //   "/main",
-                    //   (_) => false,
-                    // );
-                    //     // Navigator.pushNamed(context, '/main');
-                    //   },
-                    // );
-                    // }
                   },
                   color: Color(0xFF6697FF),
                   child: Container(
@@ -185,7 +163,6 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
                 return Text(
                   _hasError ?? "",
                   textAlign: TextAlign.left,
-                  // style: textTheme.bodyText1,
                 );
               }(),
             ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:identity/data/repository.dart';
 import 'package:identity_mobile/identity.dart';
-
 
 class IdentityCreatedScreen extends StatefulWidget {
   @override
@@ -10,13 +10,13 @@ class IdentityCreatedScreen extends StatefulWidget {
 }
 
 class _IdentityCreatedScreenState extends State<IdentityCreatedScreen> {
-Future<Identity> identityFuture;
+  Future<Identity> identityFuture;
 
   @override
   void initState() {
     super.initState();
 
- identityFuture = Repository.get().getIdentity();
+    identityFuture = Repository.get().getIdentity();
   }
 
   @override
@@ -67,7 +67,7 @@ Future<Identity> identityFuture;
                   Text(
                     'Yay!! 😊',
                     textAlign: TextAlign.left,
-                style: textTheme.headline4,
+                    style: textTheme.headline4,
                   ),
                   SizedBox(
                     height: 10,
@@ -174,7 +174,6 @@ Future<Identity> identityFuture;
                           child: Text(
                             'Ready',
                             style: TextStyle(
-                              // fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),

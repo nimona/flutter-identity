@@ -2,13 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:identity/data/datastore.dart';
-import 'package:identity/data/ws_model/daemon_info_response.dart';
-import 'package:identity/data/wsdatastore.dart';
-import 'package:identity/model/contact.dart';
-import 'package:identity/model/conversation.dart';
-import 'package:identity/model/message_block.dart';
-import 'package:identity/model/own_profile.dart';
+
 import 'package:identity_mobile/identity.dart';
 
 class Repository {
@@ -18,27 +12,17 @@ class Repository {
     return _repo;
   }
 
-  DataStore _dataStore = new WsDataStore();
   FlutterSecureStorage storage = new FlutterSecureStorage();
 
-  Repository._internal() {
-    // init
-  }
+  Repository._internal() {  }
 
   Future<void> putIdentity(Identity identity) {
-    print("wrrrriiii");
-    print(json.encode(identity).toString());
     try {
       return storage.write(
         key: "identity",
         value: json.encode(identity).toString(),
       );
     } catch (e) {
-      print(">>>");
-      print(">>>");
-      print(">>>");
-      print(">>>");
-      print(e);
       throw e;
     }
   }
@@ -70,80 +54,5 @@ class Repository {
 
   Future<void> removeIdentity() async {
     return storage.deleteAll();
-  }
-
-  void createContact(String identityKey, String alias) {
-    _dataStore.createContact(identityKey, alias);
-  }
-
-  void updateContact(String identityKey, String alias) {
-    _dataStore.updateContact(identityKey, alias);
-  }
-
-  StreamController<Contact> getContacts() {
-    StreamController<Contact> sc = new StreamController();
-    sc.addStream(_dataStore.getContacts());
-    return sc;
-  }
-
-  void createMessage(String conversationHash, String body) {
-    _dataStore.createMessage(conversationHash, body);
-  }
-
-  StreamController<List<MessageBlock>> getMessagesForConversation(
-    String conversationId,
-  ) {
-    StreamController<List<MessageBlock>> sc = new StreamController();
-    sc.addStream(_dataStore.getMessagesForConversation(conversationId));
-    return sc;
-  }
-
-  void joinConversation(String hash) {
-    _dataStore.joinConversation(hash);
-  }
-
-  void createConversation(String name, String topic) {
-    _dataStore.startConversation(name, topic);
-  }
-
-  void updateConversation(String hash, name, topic) {
-    _dataStore.updateConversation(hash, name, topic);
-  }
-
-  void conversationMarkRead(String hash) {
-    _dataStore.conversationMarkRead(hash);
-  }
-
-  void updateConversationDisplayPicture(String hash, diplayPicture) {
-    _dataStore.updateConversationDisplayPicture(hash, diplayPicture);
-  }
-
-  void updateOwnProfile(String nameFirst, nameLast, displayPicture) {
-    _dataStore.updateOwnProfile(nameFirst, nameLast, displayPicture);
-  }
-
-  StreamController<OwnProfile> getOwnProfile() {
-    StreamController<OwnProfile> sc = new StreamController();
-    sc.addStream(_dataStore.getOwnProfile());
-    return sc;
-  }
-
-  StreamController<Conversation> getConversations() {
-    StreamController<Conversation> sc = new StreamController();
-    sc.addStream(_dataStore.getConversations());
-    return sc;
-  }
-
-  Future<DaemonInfoResponse> daemonInfoGet() async {
-    return _dataStore.daemonInfoGet();
-  }
-
-  Future<void> identityCreate(
-      String nameFirst, nameLast, displayPicture) async {
-    _dataStore.identityCreate(nameFirst, nameLast, displayPicture);
-  }
-
-  Future<void> identityLoad(String mnemonic) async {
-    _dataStore.identityLoad(mnemonic);
   }
 }

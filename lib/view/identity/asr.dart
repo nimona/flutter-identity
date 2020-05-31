@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:identity/data/repository.dart';
-import 'package:identity_mobile/identity_mobile.dart';
-
 import 'package:local_auth_device_credentials/local_auth.dart';
 
+import 'package:identity/data/repository.dart';
+import 'package:identity_mobile/identity_mobile.dart';
 import 'package:identity/model/asr.dart';
 import 'package:identity_mobile/identity.dart';
 import 'package:progress_state_button/iconed_button.dart';
@@ -58,48 +57,32 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
 
     final TextStyle headerStyle = TextStyle(
       color: Colors.grey.shade800,
-      // fontWeight: FontWeight.bold,
-      // fontSize: 20.0,
     );
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Signing request"),
       ),
-      // appBar: EmptyAppBar(),
-      // backgroundColor: Colors.white,
       backgroundColor: Color(0xFFFAFAFA),
-
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.all(10.0),
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Text(
-              //   "Signing request",
-              //   textAlign: TextAlign.left,
-              //   style: headerStyle,
-              // ),
               SizedBox(
                 height: 5,
               ),
               Container(
                 alignment: Alignment.center,
-                // margin: EdgeInsets.all(10.0),
                 width: double.infinity,
-                // height: 80.0,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
-                  // border: Border.all(color: Colors.black26),
                 ),
                 child: Column(
                   children: <Widget>[
                     ListTile(
                       leading: Icon(
-                        // Icons.info_outline,
                         Feather.info,
                         size: 40.0,
                       ),
@@ -117,24 +100,13 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                             : widget.asrString,
                         textAlign: TextAlign.left,
                         style: textTheme.bodyText2.copyWith(
-                          // fontFamily: "Courier",
                           color: Colors.grey,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      // selected: false,
-                      // onTap: () {
-                      //   // Clipboard.setData(
-                      //   //   ClipboardData(
-                      //   //     text: snapshot.data.publicKey,
-                      //   //   ),
-                      //   // );
-                      //   // showDefaultSnackbar("Public key copied", context);
-                      // },
                     ),
                     ListTile(
                       leading: Icon(
-                        // Icons.info_outline,
                         Feather.folder,
                         size: 40.0,
                       ),
@@ -148,7 +120,6 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                         asr.dataO.resourcesAs.join(", "),
                         textAlign: TextAlign.left,
                         style: textTheme.bodyText2.copyWith(
-                          // fontFamily: "Courier",
                           color: Colors.grey,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -156,7 +127,6 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                     ),
                     ListTile(
                       leading: Icon(
-                        // Icons.info_outline,
                         Feather.zap,
                         size: 40.0,
                       ),
@@ -170,13 +140,11 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                         asr.dataO.actionsAs.join(", "),
                         textAlign: TextAlign.left,
                         style: textTheme.bodyText2.copyWith(
-                          // fontFamily: "Courier",
                           color: Colors.grey,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    // SEED
                   ],
                 ),
               ),
@@ -190,32 +158,19 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                     ButtonState.idle: IconedButton(
                       text: "Sign authorization",
                       icon: Icon(
-                        // Icons.send,
                         Ionicons.ios_send,
                         color: Colors.white,
                       ),
                       color: theme.accentColor,
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   // fontWeight: FontWeight.w500,
-                      // ),
                     ),
                     ButtonState.loading: IconedButton(
                       text: "Loading",
                       color: theme.accentColor,
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   // fontWeight: FontWeight.w500,
-                      // ),
                     ),
                     ButtonState.fail: IconedButton(
                       text: "Failed to deliver certificate",
                       icon: Icon(Icons.cancel, color: Colors.white),
                       color: Colors.red.shade300,
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   // fontWeight: FontWeight.w500,
-                      // ),
                     ),
                     ButtonState.success: IconedButton(
                       text: "Signed and delivered certificate",
@@ -224,18 +179,8 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                         color: Colors.white,
                       ),
                       color: Colors.green.shade400,
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   // fontWeight: FontWeight.w500,
-                      // ),
                     )
                   },
-                  // stateColors: {
-                  //   ButtonState.idle: theme.accentColor,
-                  //   ButtonState.loading: theme.accentColor,
-                  //   ButtonState.fail: Colors.red.shade300,
-                  //   ButtonState.success: Colors.green.shade400,
-                  // },
                   onPressed: () {
                     setState(() {
                       _err = "";
@@ -251,104 +196,32 @@ class _AuthorizationSigningPageState extends State<AuthorizationSigningPage> {
                         ).then((resp) {
                           if (resp == "ok?") {
                             setState(() {
-                              // _resp = "Authorization signed and delived.";
                               stateTextWithIcon = ButtonState.success;
                             });
                           } else {
                             setState(() {
-                              // _resp = "Error delivering singed authorization.";
                               _err = resp;
                               stateTextWithIcon = ButtonState.fail;
                             });
                           }
                         }).catchError(() {
                           setState(() {
-                            // _resp = "Error delivering singed authorization.";
                             stateTextWithIcon = ButtonState.fail;
                           });
                         });
                       }).catchError(() {
                         setState(() {
-                          // _resp = "Error delivering singed authorization.";
                           stateTextWithIcon = ButtonState.fail;
                         });
                       });
                     } catch (e) {
                       setState(() {
-                        // _resp = "Error delivering singed authorization.";
                         stateTextWithIcon = ButtonState.fail;
                       });
                     }
                   },
                   state: stateTextWithIcon,
                 ),
-                // child: ProgressButton(
-                //   // defaultWidget: const Text('Sign authorization request'),
-                //   // progressWidget: const CircularProgressIndicator(
-                //   //   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                //   // ),
-                //   // width: 196,
-                //   // height: 40,
-                //   borderRadius: BorderRadius.all(Radius.circular(8)),
-                //   strokeWidth: 2,
-                //   child: Text(
-                //     "Sample",
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 24,
-                //     ),
-                //   ),
-                //   // onPressed: (AnimationController controller) {
-                //   //   if (controller.isCompleted) {
-                //   //     controller.reverse();
-                //   //   } else {
-                //   //     controller.forward();
-                //   //   }
-                //   // },
-                //   onPressed: (AnimationController controller) {
-                //     setState(() {
-                //       _resp = "";
-                //     });
-                //     Repository.get().getIdentity().then((id) {
-                //       IdentityMobile.signAuthorizationRequestString(
-                //         id.privateKey,
-                //         widget.asrString,
-                //       ).then((resp) {
-                //         if (resp == "ok?") {
-                //           setState(() {
-                //             _resp = "Authorization signed and delived.";
-                //           });
-                //         } else {
-                //           setState(() {
-                //             _resp = "Error delivering singed authorization.";
-                //           });
-                //           controller.forward();
-                //           // controller.
-                //         }
-                //       });
-                //     });
-                //   },
-                // ),
-                // child: RaisedButton(
-                //   color: theme.primaryColor,
-                //   child: Text(
-                //     "Sign authorization",
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                //   onPressed: () {
-                //     Repository.get().getIdentity().then((id) {
-                //       IdentityMobile.signAuthorizationRequestString(
-                //         id.privateKey,
-                //         widget.asrString,
-                //       ).then((r) {
-                //         print("resp");
-                //         print(r);
-                //       });
-                //     });
-                //   },
-                // ),
               ),
               SizedBox(
                 height: 10,
