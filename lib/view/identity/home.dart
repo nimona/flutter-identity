@@ -20,16 +20,14 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   Future<Identity> identityFuture;
 
   @override
   void initState() {
     super.initState();
 
-    // WidgetsBinding.instance.addObserver(
-    //   CacheControl(),
-    // );
+    WidgetsBinding.instance.addObserver(this);
 
     _getAvailableBiometrics();
     _checkBiometrics();
@@ -41,7 +39,14 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("STATE");
+    print(state);
   }
 
   void showDefaultSnackbar(String s, BuildContext context) {
@@ -189,27 +194,6 @@ class _HomeState extends State<Home> {
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  // SizedBox(
-                  //   height: 15.0,
-                  // ),
-                  // Opacity(
-                  //   opacity: 0.87,
-                  //   child: Container(
-                  //     width: 100,
-                  //     height: 113,
-                  //     decoration: BoxDecoration(
-                  //       image: DecorationImage(
-                  //         image: AssetImage(
-                  //           'images/nimona-blue.png',
-                  //         ),
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 15.0,
-                  // ),
                   Text(
                     "Identity",
                     textAlign: TextAlign.left,
@@ -561,67 +545,69 @@ class _HomeState extends State<Home> {
                     ),
                     child: Column(
                       children: <Widget>[
-                        SwitchListTile(
-                          secondary: Icon(
-                            Icons.fingerprint,
-                            // size: 40.0,
-                          ),
-                          title: Text(
-                            () {
-                              if (_availableBiometrics.length == 0) {
-                                return "...";
-                              }
-                              if (_availableBiometrics[0] ==
-                                  BiometricType.face) {
-                                return "Require Face ID to unlock";
-                              }
-                              if (_availableBiometrics[0] ==
-                                  BiometricType.fingerprint) {
-                                return "Require Touch ID to unlock";
-                              }
-                              return "Require biometric unlock";
-                            }(),
-                            // _availableBiometrics.toString(),
-                            // "Use TouchID to unlock",
-                            style: TextStyle(
-                              color: Colors.grey[600],
+                        () {
+                          if (_availableBiometrics.length == 0) {
+                            return Container();
+                          }
+                          return SwitchListTile(
+                            secondary: Icon(
+                              Icons.fingerprint,
+                              // size: 40.0,
                             ),
-                          ),
-                          // subtitle: Text(
-                          //   snapshot.data.publicKey,
-                          //   textAlign: TextAlign.left,
-                          //   style: textTheme.bodyText2.copyWith(
-                          //     fontFamily: "Courier",
-                          //     color: Colors.grey,
-                          //   ),
-                          //   overflow: TextOverflow.ellipsis,
-                          // ),
-                          value: _mustAuthenticate,
-                          // selected: false,
-                          onChanged: (newMustAuth) {
-                            auth
-                                .authenticate(
-                              localizedReason:
-                                  'Authentication for Nimona Identity',
-                              useErrorDialogs: true,
-                              stickyAuth: true,
-                            )
-                                .then(
-                              (ok) {
-                                if (!ok) {
-                                  return;
+                            title: Text(
+                              () {
+                                if (_availableBiometrics[0] ==
+                                    BiometricType.face) {
+                                  return "Require Face ID to unlock";
                                 }
-                                Repository.get()
-                                    .setMustAuthenticate(newMustAuth);
-                                setState(
-                                  () {
-                                    _mustAuthenticate = newMustAuth;
-                                  },
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                if (_availableBiometrics[0] ==
+                                    BiometricType.fingerprint) {
+                                  return "Require Touch ID to unlock";
+                                }
+                                return "Require biometric unlock";
+                              }(),
+                              // _availableBiometrics.toString(),
+                              // "Use TouchID to unlock",
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            // subtitle: Text(
+                            //   snapshot.data.publicKey,
+                            //   textAlign: TextAlign.left,
+                            //   style: textTheme.bodyText2.copyWith(
+                            //     fontFamily: "Courier",
+                            //     color: Colors.grey,
+                            //   ),
+                            //   overflow: TextOverflow.ellipsis,
+                            // ),
+                            value: _mustAuthenticate,
+                            // selected: false,
+                            onChanged: (newMustAuth) {
+                              auth
+                                  .authenticate(
+                                localizedReason:
+                                    'Authentication for Nimona Identity',
+                                useErrorDialogs: true,
+                                stickyAuth: true,
+                              )
+                                  .then(
+                                (ok) {
+                                  if (!ok) {
+                                    return;
+                                  }
+                                  Repository.get()
+                                      .setMustAuthenticate(newMustAuth);
+                                  setState(
+                                    () {
+                                      _mustAuthenticate = newMustAuth;
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        }(),
                         ListTile(
                           leading: Icon(
                             // Icons.info_outline,
