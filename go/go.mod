@@ -20,15 +20,13 @@ require (
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.4.0
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	github.com/tjarratt/babble v0.0.0-20191209142150-eecdf8c2339d
 	github.com/tsdtsdtsd/identicon v0.3.2
 	github.com/tyler-smith/go-bip39 v1.0.2
 	github.com/zserge/metric v0.1.0
 	golang.org/x/mobile v0.0.0-20200329125638-4c31acba0007 // indirect
-	golang.org/x/sync v0.0.0-20190423024810-112230192c58 // indirect
 	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
-	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 	gopkg.in/fsnotify.v1 v1.4.7
 	nimona.io v0.7.1-0.20200419003157-0e2e2b086ca5
 )

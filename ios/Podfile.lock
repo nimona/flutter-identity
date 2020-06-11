@@ -27,7 +27,7 @@ PODS:
 
 DEPENDENCIES:
   - barcode_scan (from `Pods/.symlinks/plugins/barcode_scan/ios`)
-  - Flutter (from `Pods/.symlinks/flutter/ios`)
+  - Flutter (from `Pods/.symlinks/flutter/ios-release`)
   - flutter_plugin_android_lifecycle (from `Pods/.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_secure_storage (from `Pods/.symlinks/plugins/flutter_secure_storage/ios`)
   - identity_mobile (from `Pods/.symlinks/plugins/identity_mobile/ios`)
@@ -47,7 +47,7 @@ EXTERNAL SOURCES:
   barcode_scan:
     :path: Pods/.symlinks/plugins/barcode_scan/ios
   Flutter:
-    :path: Pods/.symlinks/flutter/ios
+    :path: Pods/.symlinks/flutter/ios-release
   flutter_plugin_android_lifecycle:
     :path: Pods/.symlinks/plugins/flutter_plugin_android_lifecycle/ios
   flutter_secure_storage:
