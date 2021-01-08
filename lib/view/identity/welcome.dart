@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:identity_mobile/identity_mobile.dart';
 import 'package:local_auth_device_credentials/local_auth.dart';
 
 import 'package:identity/data/repository.dart';
@@ -182,8 +183,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                                 padding: EdgeInsets.all(15),
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, '/identity-create');
+                                  // Navigator.pushNamed(
+                                  //     context, '/identity-created');
+                                  IdentityMobile.createNewIdentity(
+                                    "",
+                                  ).then((Identity identity) {
+                                    Repository.get()
+                                        .putIdentity(identity)
+                                        .then((value) {
+                                      Navigator.pushNamed(
+                                          context, '/identity-created');
+                                    });
+                                  });
                                 },
                                 color: Colors.white,
                                 child: Container(

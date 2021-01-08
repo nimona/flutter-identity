@@ -1,6 +1,6 @@
 name: identity
 description: A new Flutter application.
-version: 0.1.1
+version: 0.2.1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -37,6 +37,7 @@ dependencies:
   barcode_scan: ^3.0.1
   focus_detector: ^1.0.2
   progress_state_button: ^1.0.1
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:

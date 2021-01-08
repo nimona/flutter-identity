@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 
-gem "fastlane"
+gem "fastlane", ">= 2.171.0"
+gem "aws-sdk-kms", ">= 1.40.0"
