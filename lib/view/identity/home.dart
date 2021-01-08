@@ -23,15 +23,37 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   Future<Identity> identityFuture;
 
+  String foo = "0";
+
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
 
+    final methodChannel = MethodChannel('identity_mobile');
+    methodChannel.setMethodCallHandler((MethodCall call) async {
+      final String utterance = call.arguments;
+        print(call.method);
+        print(call.method);
+        print(call.method);
+        print(call.method);
+      switch (call.method) {
+        case "foo":
+          print(utterance);
+          print(utterance);
+          print(utterance);
+          print(utterance);
+          setState(() {
+            foo = utterance;
+          });
+      }
+    });
+
     _getAvailableBiometrics();
-    _checkBiometrics();
+    // _checkBiometrics();
     Repository.get().getMustAuthenticate().then((v) {
+      print('MUST AUTH ==== '+ v.toString());
       _mustAuthenticate = v;
     });
     identityFuture = Repository.get().getIdentity();
@@ -59,7 +81,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   final LocalAuthentication auth = LocalAuthentication();
 
-  bool _canCheckBiometrics;
+  // bool _canCheckBiometrics;
   List<BiometricType> _availableBiometrics;
   // String _authorized = 'Not Authorized';
   // bool _isAuthenticating = false;
@@ -67,19 +89,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   // bool _hasIdentity = false;
   bool _mustAuthenticate = false;
 
-  Future<void> _checkBiometrics() async {
-    bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
+  // Future<void> _checkBiometrics() async {
+  //   bool canCheckBiometrics;
+  //   try {
+  //     canCheckBiometrics = await auth.canCheckBiometrics;
+  //   } on PlatformException catch (e) {
+  //     print(e);
+  //   }
+  //   if (!mounted) return;
 
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
+  //   setState(() {
+  //     _canCheckBiometrics = canCheckBiometrics;
+  //   });
+  // }
 
   Future<void> _getAvailableBiometrics() async {
     List<BiometricType> availableBiometrics;
@@ -155,9 +177,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       );
     }
 
-    bool lockInBackground = true;
-    bool notificationsEnabled = true;
-    String _asrError = "";
+    // bool lockInBackground = true;
+    // bool notificationsEnabled = true;
+    // String _asrError = "";
 
     final TextStyle headerStyle = TextStyle(
       color: Colors.grey.shade800,
@@ -448,77 +470,77 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
 // APPS
 
-                  Text(
-                    "Applications",
-                    textAlign: TextAlign.left,
-                    style: headerStyle,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    // margin: EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    // height: 80.0,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                      // border: Border.all(color: Colors.black26),
-                    ),
-                    child: ListTile(
-                      leading: Icon(
-                        // Icons.info_outline,
-                        MaterialCommunityIcons.qrcode_scan,
-                        size: 40.0,
-                      ),
-                      title: Text(
-                        "Sign an authorization request",
-                        style: TextStyle(
-                          // color: Colors.grey[600],
-                          color: theme.accentColor,
-                        ),
-                      ),
-                      subtitle: Text(
-                        _asrError == ""
-                            ? "Scan a QR code for an ASR"
-                            : _asrError,
-                        textAlign: TextAlign.left,
-                        style: textTheme.bodyText2.copyWith(
-                          // fontFamily: "Courier",
-                          // color: _asrError == "" ? Colors.grey : Colors.red,
-                          color:
-                              _asrError == "" ? theme.accentColor : Colors.red,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      selected: false,
-                      onTap: () {
-                        // String j =
-                        //     '{"data:o":{"applicationDescription:s":"An app that does nothing","applicationName:s":"Foobar App","applicationURL:s":"https://github.com/nimona"},"policy:o":{"actions:as":["read","write","delete","archive"],"effect:s":"allow","resources:as":["nimona.io/**","mochi.io/**"],"subjects:as":["ed25519.22vTZ8RLLkanwKnNEz48kA84Jn5UaknFw5FbnkVnb31K"]},"type:s":"nimona.io/peer.CertificateRequest"}';
-                        setState(() {
-                          _asrError = "";
-                        });
-                        BarcodeScanner.scan().then((v) {
-                          if (v.rawContent == "") {
-                            setState(() {
-                              _asrError = "Could not process QR code.";
-                            });
-                            return;
-                          }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AuthorizationSigningPage(
-                                // asrString: '{"data:o":{"actions:as":["read","write","delete","archive"],"applicationDescription:s":"An app that does nothing","applicationName:s":"Foobar App","applicationURL:s":"https://github.com/nimona","nonce:s":"uTmmWuqC","resources:as":["nimona.io/**","mochi.io/**"],"subjects:as":["ed25519.DkSaiQAYiFoFsuLFm3Do3a7DFkFZ8vt2dnvqpG6YkXzZ"]},"type:s":"nimona.io/peer.CertificateRequest"}',
-                                asrString: v.rawContent,
-                              ),
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                  ),
+                  // Text(
+                  //   "Applications",
+                  //   textAlign: TextAlign.left,
+                  //   style: headerStyle,
+                  // ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
+                  // Container(
+                  //   alignment: Alignment.center,
+                  //   // margin: EdgeInsets.all(10.0),
+                  //   width: double.infinity,
+                  //   // height: 80.0,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     // border: Border.all(color: Colors.black26),
+                  //   ),
+                  //   child: ListTile(
+                  //     leading: Icon(
+                  //       // Icons.info_outline,
+                  //       MaterialCommunityIcons.qrcode_scan,
+                  //       size: 40.0,
+                  //     ),
+                  //     title: Text(
+                  //       "Sign an authorization request",
+                  //       style: TextStyle(
+                  //         // color: Colors.grey[600],
+                  //         color: theme.accentColor,
+                  //       ),
+                  //     ),
+                  //     subtitle: Text(
+                  //       _asrError == ""
+                  //           ? "Scan a QR code for an ASR"
+                  //           : _asrError,
+                  //       textAlign: TextAlign.left,
+                  //       style: textTheme.bodyText2.copyWith(
+                  //         // fontFamily: "Courier",
+                  //         // color: _asrError == "" ? Colors.grey : Colors.red,
+                  //         color:
+                  //             _asrError == "" ? theme.accentColor : Colors.red,
+                  //       ),
+                  //       overflow: TextOverflow.ellipsis,
+                  //     ),
+                  //     selected: false,
+                  //     onTap: () {
+                  //       // String j =
+                  //       //     '{"data:o":{"applicationDescription:s":"An app that does nothing","applicationName:s":"Foobar App","applicationURL:s":"https://github.com/nimona"},"policy:o":{"actions:as":["read","write","delete","archive"],"effect:s":"allow","resources:as":["nimona.io/**","mochi.io/**"],"subjects:as":["ed25519.22vTZ8RLLkanwKnNEz48kA84Jn5UaknFw5FbnkVnb31K"]},"type:s":"nimona.io/peer.CertificateRequest"}';
+                  //       setState(() {
+                  //         _asrError = "";
+                  //       });
+                  //       BarcodeScanner.scan().then((v) {
+                  //         if (v.rawContent == "") {
+                  //           setState(() {
+                  //             _asrError = "Could not process QR code.";
+                  //           });
+                  //           return;
+                  //         }
+                  //         Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => AuthorizationSigningPage(
+                  //               // asrString: '{"data:o":{"actions:as":["read","write","delete","archive"],"applicationDescription:s":"An app that does nothing","applicationName:s":"Foobar App","applicationURL:s":"https://github.com/nimona","nonce:s":"uTmmWuqC","resources:as":["nimona.io/**","mochi.io/**"],"subjects:as":["ed25519.DkSaiQAYiFoFsuLFm3Do3a7DFkFZ8vt2dnvqpG6YkXzZ"]},"type:s":"nimona.io/peer.CertificateRequest"}',
+                  //               asrString: v.rawContent,
+                  //             ),
+                  //           ),
+                  //         );
+                  //       });
+                  //     },
+                  //   ),
+                  // ),
 
 // SETTINGS
 
@@ -546,7 +568,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     child: Column(
                       children: <Widget>[
                         () {
-                          if (_availableBiometrics.length == 0) {
+                          if (_availableBiometrics == null || _availableBiometrics.length == 0) {
                             return Container();
                           }
                           return SwitchListTile(
@@ -596,6 +618,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                   if (!ok) {
                                     return;
                                   }
+                                  print("SET MUST AUTH == " + newMustAuth.toString());
                                   Repository.get()
                                       .setMustAuthenticate(newMustAuth);
                                   setState(

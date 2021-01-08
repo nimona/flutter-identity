@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:identity/data/repository.dart';
 import 'package:identity_mobile/identity.dart';
@@ -30,8 +29,6 @@ class _IdentityCreateScreenState extends State<IdentityCreateScreen> {
 
   String name;
   String displayPicture;
-
-  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,4 @@
+git_url("git@github.com:nimona/fastlane-certificates.git")
+app_identifier(["io.nimona.identity"])
+username(ENV['FASTLANE_USER'])
+type("appstore")

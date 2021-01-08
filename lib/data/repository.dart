@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:identity_mobile/identity.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
   static final Repository _repo = new Repository._internal();
@@ -12,23 +11,20 @@ class Repository {
     return _repo;
   }
 
-  FlutterSecureStorage storage = new FlutterSecureStorage();
+  Repository._internal();
 
-  Repository._internal() {  }
-
-  Future<void> putIdentity(Identity identity) {
+  Future<void> putIdentity(Identity identity) async {
     try {
-      return storage.write(
-        key: "identity",
-        value: json.encode(identity).toString(),
-      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("identity", json.encode(identity).toString());
     } catch (e) {
       throw e;
     }
   }
 
   Future<Identity> getIdentity() async {
-    String idString = await storage.read(key: "identity");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idString = prefs.getString("identity");
     if (idString == null || idString == "") {
       return Identity();
     }
@@ -37,22 +33,26 @@ class Repository {
   }
 
   Future<void> setMustAuthenticate(bool v) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (v == true) {
-      storage.write(key: "authentication", value: "true");
+      prefs.setBool("authentication", true);
     } else {
-      storage.delete(key: "authentication");
+      prefs.remove("authentication");
     }
   }
 
   Future<bool> getMustAuthenticate() async {
-    String idString = await storage.read(key: "authentication");
-    if (idString != null && idString == "true") {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool idString = prefs.getBool("authentication");
+    if (idString == true) {
       return true;
     }
     return false;
   }
 
   Future<void> removeIdentity() async {
-    return storage.deleteAll();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("authentication");
+    prefs.remove("identity");
   }
 }
