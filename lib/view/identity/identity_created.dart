@@ -57,7 +57,10 @@ class _IdentityCreatedScreenState extends State<IdentityCreatedScreen> {
             return Text(snapshot.connectionState.toString());
           }
           List<String> words = snapshot.data.privateKeyMnemonic.split(" ");
-          return Container(
+          return  SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(10.0),
+              child: Container(
             padding: EdgeInsets.all(15),
             child: Center(
               child: Column(
@@ -183,6 +186,8 @@ class _IdentityCreatedScreenState extends State<IdentityCreatedScreen> {
                     ),
                   ),
                 ],
+              ),
+            ),
               ),
             ),
           );

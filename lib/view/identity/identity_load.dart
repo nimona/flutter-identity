@@ -44,7 +44,10 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
         ),
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body:  SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(10.0),
+              child: Container(
         padding: EdgeInsets.all(15),
         child: Center(
           child: Column(
@@ -168,6 +171,8 @@ class _IdentityLoadScreenState extends State<IdentityLoadScreen>
             ],
           ),
         ),
+      ),
+      ),
       ),
     );
   }
