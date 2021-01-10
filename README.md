@@ -31,7 +31,16 @@ flutter doctor -v
 * Linux: `hover build linux`
 * iOS: `make build-ios`
 
+### Bump version
+
+You will need to install `pubumgo` using `go get gitlab.com/ad-on-is/pubumgo`.
+Then run `make bump` and commit the changes.
+
 ### Release
 
 Releases are handled by github actions.
-In order to bump the build numbers please use `make bump`.
+In order to bump the build numbers please use one of the following:
+
+* `make bump-patch`
+* `make bump-minor`
+* `make bump-major`

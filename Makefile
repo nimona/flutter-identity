@@ -8,10 +8,38 @@ APPLE_PASSWORD := @keychain:AC_PASSWORD
 GOMOBILE_PKG := nimona.io/plugins/flutter
 APP_PATH := $(CURDIR)
 
-.PHONY: bump
-bump:
-	@cd ios; \
-		fastlane run increment_build_number
+.PHONY: bump-patch
+bump-patch: bump-patch-podspec
+	$(eval VERSION := $(shell yq e '.version' pubspec.yaml))
+	cd ios && \
+		fastlane run increment_build_number && \
+		agvtool new-marketing-version $(VERSION)
+
+.PHONY: bump-patch-podspec
+bump-patch-podspec:
+	pubumgo patch
+
+.PHONY: bump-minor
+bump-minor: bump-minor-podspec
+	$(eval VERSION := $(shell yq e '.version' pubspec.yaml))
+	cd ios && \
+		fastlane run increment_build_number && \
+		agvtool new-marketing-version $(VERSION)
+
+.PHONY: bump-minor-podspec
+bump-minor-podspec:
+	pubumgo minor
+
+.PHONY: bump-major
+bump-major: bump-major-podspec
+	$(eval VERSION := $(shell yq e '.version' pubspec.yaml))
+	cd ios && \
+		fastlane run increment_build_number && \
+		agvtool new-marketing-version $(VERSION)
+
+.PHONY: bump-major-podspec
+bump-major-podspec:
+	pubumgo major
 
 .PHONE: bind-ios
 bind-ios:
