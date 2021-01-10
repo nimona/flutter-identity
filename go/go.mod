@@ -36,7 +36,7 @@ require (
 
 // replace github.com/zserge/metric => ../../metric
 
-replace nimona.io => ../../../../nimona.io
+// replace nimona.io => ../../../../nimona.io
 
 // replace github.com/go-flutter-desktop/go-flutter => ../../go-flutter
 

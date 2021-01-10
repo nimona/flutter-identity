@@ -74,3 +74,4 @@ ios/*.zip
 artifacts
 ios/*.ipa
 .flutter-plugins-dependencies
+ios/fastlane/report.xml

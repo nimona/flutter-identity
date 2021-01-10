@@ -1,9 +1,7 @@
 NAME = $(shell yq e '.name' pubspec.yaml)
 VERSION = $(shell yq e '.version' pubspec.yaml)
 
-CERT_NAME := LNCQ7FYZE7
-APPLE_USERNAME := george@noodles.gr
-APPLE_PASSWORD := @keychain:AC_PASSWORD
+CERT_NAME := Developer ID Application: 0x2A Ltd (LNCQ7FYZE7)
 
 GOMOBILE_PKG := nimona.io/plugins/flutter
 APP_PATH := $(CURDIR)
@@ -63,8 +61,8 @@ release-ios:
 .PHONE: release-ios-verify
 release-ios-verify:
 	@xcrun altool \
-		--username "$(APPLE_USERNAME)" \
-		--password "$(APPLE_PASSWORD)" \
+		--username "$(FASTLANE_USER)" \
+		--password "$(FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD)" \
 		--notarization-info $(REQ_ID)
 
 .PHONY: build-macos
@@ -92,7 +90,7 @@ build-macos:
 	@xcrun altool \
 		--notarize-app \
 		--primary-bundle-id "io.nimona.$(NAME)" \
-		--username "$(APPLE_USERNAME)" \
-		--password "$(APPLE_PASSWORD)" \
+		--username "$(FASTLANE_USER)" \
+		--password "$(FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD)" \
 		--file ./artifacts/$(NAME)-$(VERSION).app.zip
 	@echo "All done!"

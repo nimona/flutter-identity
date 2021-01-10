@@ -1,8 +1,6 @@
 name: CI
-on:
-  push:
-    branches:
-      - master
+on: [push]
+
 jobs:
   deploy:
     runs-on: macos-latest
@@ -21,8 +19,15 @@ jobs:
         with:
           flutter-version: "1.26.0-1.0.pre"
           channel: "dev"
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15.x
       - name: Install tools
         run: |
+          brew update
+          brew install yq
+          GO111MODULE=on go get -u -a github.com/go-flutter-desktop/hover
           flutter pub get
           flutter build ios --release --no-codesign
           cd ./ios && pod install
@@ -42,10 +47,11 @@ jobs:
           PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy to TestFlight
         run: |
+          make build-macos
           cd ./ios
           bundle exec fastlane match development --readonly
           security find-identity -v -p codesigning
-          bundle exec fastlane beta --verbose
+          bundle exec fastlane mac release -- verbose
         env:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           ITC_TEAM_ID: ${{ secrets.ITC_TEAM_ID }}
