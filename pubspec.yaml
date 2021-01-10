@@ -1,6 +1,6 @@
 name: identity
 description: A new Flutter application.
-version: 0.2.1
+version: 1.7.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
