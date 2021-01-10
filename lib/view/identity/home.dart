@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   Future<Identity> identityFuture;
 
-  String foo = "0";
+  // String foo = "0";
 
   @override
   void initState() {
@@ -31,24 +31,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
     WidgetsBinding.instance.addObserver(this);
 
-    final methodChannel = MethodChannel('identity_mobile');
-    methodChannel.setMethodCallHandler((MethodCall call) async {
-      final String utterance = call.arguments;
-        print(call.method);
-        print(call.method);
-        print(call.method);
-        print(call.method);
-      switch (call.method) {
-        case "foo":
-          print(utterance);
-          print(utterance);
-          print(utterance);
-          print(utterance);
-          setState(() {
-            foo = utterance;
-          });
-      }
-    });
+    // final methodChannel = MethodChannel('identity_mobile');
+    // methodChannel.setMethodCallHandler((MethodCall call) async {
+    //   final String utterance = call.arguments;
+    //   switch (call.method) {
+    //     case "foo":
+    //       setState(() {
+    //         foo = utterance;
+    //       });
+    //   }
+    // });
 
     _getAvailableBiometrics();
     // _checkBiometrics();
@@ -204,9 +196,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           if (snapshot.data == null) {
             return Text("...");
           }
-          print("111!");
-          print(snapshot.data);
-          print(jsonEncode(snapshot.data));
           List<String> words = snapshot.data.privateKeyMnemonic.split(" ");
 
           return SingleChildScrollView(
@@ -618,7 +607,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                   if (!ok) {
                                     return;
                                   }
-                                  print("SET MUST AUTH == " + newMustAuth.toString());
                                   Repository.get()
                                       .setMustAuthenticate(newMustAuth);
                                   setState(
