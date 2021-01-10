@@ -11,6 +11,11 @@ platform :ios do
       workspace: "Runner.xcworkspace",
       scheme: "Runner",
     )
+    app_store_connect_api_key(
+      key_id: ENV["APPSTORE_CONNECT_KEYID"],
+      issuer_id: ENV["APPSTORE_CONNECT_ISSUERID"],
+      key_content: ENV["APPSTORE_CONNECT_PRIVATE_KEY"]
+    )
     upload_to_testflight
   end
 end
