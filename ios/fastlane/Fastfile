@@ -19,3 +19,29 @@ platform :ios do
     upload_to_testflight
   end
 end
+platform :mac do
+  desc "Push a new build to macos store"
+  lane :release do
+    # setup_ci
+    # sync_code_signing(  
+    #   type: "appstore",
+    #   readonly: is_ci
+    # )
+    # build_app(
+    #   workspace: "Runner.xcworkspace",
+    #   scheme: "Runner",
+    # )
+    app_store_connect_api_key(
+      key_id: ENV["APPSTORE_CONNECT_KEYID"],
+      issuer_id: ENV["APPSTORE_CONNECT_ISSUERID"],
+      key_content: ENV["APPSTORE_CONNECT_PRIVATE_KEY"]
+    )
+    notarize(
+      verbose: true,
+      package: "../go/build/outputs/darwin-bundle-release/identity 1.7.0.app",
+      bundle_id: "io.nimona.identity",
+      asc_provider: ENV["ITC_TEAM_ID"] # "LNCQ7FYZE7"
+    )
+    # upload_to_testflight
+  end
+end

@@ -1,8 +1,5 @@
-app_identifier("io.nimona.identity") # The bundle identifier of your app
-apple_id("george@noodles.gr") # Your Apple email address
+app_identifier("io.nimona.identity")
+apple_id("bot@nimona.io")
 
-itc_team_id("120343054") # App Store Connect Team ID
-team_id("LNCQ7FYZE7") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
+itc_team_id("120343054")
+team_id("LNCQ7FYZE7")
